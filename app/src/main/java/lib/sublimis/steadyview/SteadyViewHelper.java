@@ -58,23 +58,26 @@ public class SteadyViewHelper
 	{
 		boolean retVal = false;
 
-		if (arguments != null && steadyView instanceof View && isSteadyViewAction(action, arguments))
+		if (arguments != null && steadyView instanceof View && steadyView.isSteadyViewEnabled())
 		{
-			final int x = arguments.getInt(ISteadyView.ARG_MOVE_X, Integer.MIN_VALUE);
-			final int y = arguments.getInt(ISteadyView.ARG_MOVE_Y, Integer.MIN_VALUE);
-
-			if (x != Integer.MIN_VALUE)
+			if (isSteadyViewAction(action, arguments))
 			{
-				((View) steadyView).setTranslationX(x);
+				final int x = arguments.getInt(ISteadyView.ARG_MOVE_X, Integer.MIN_VALUE);
+				final int y = arguments.getInt(ISteadyView.ARG_MOVE_Y, Integer.MIN_VALUE);
 
-				retVal = true;
-			}
+				if (x != Integer.MIN_VALUE)
+				{
+					((View) steadyView).setTranslationX(x);
 
-			if (y != Integer.MIN_VALUE)
-			{
-				((View) steadyView).setTranslationY(y);
+					retVal = true;
+				}
 
-				retVal = true;
+				if (y != Integer.MIN_VALUE)
+				{
+					((View) steadyView).setTranslationY(y);
+
+					retVal = true;
+				}
 			}
 		}
 
