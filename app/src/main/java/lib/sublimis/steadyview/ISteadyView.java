@@ -30,7 +30,7 @@ import androidx.annotation.Nullable;
  * Find out more at <a href="https://github.com/Sublimis/SteadyView/">https://github.com/Sublimis/SteadyView/</a>.
  *
  * @author Sublimis
- * @version 1.0 (2023-04)
+ * @version 1.0 (2024-02)
  */
 public interface ISteadyView
 {
