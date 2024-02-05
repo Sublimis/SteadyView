@@ -7,11 +7,11 @@ group = 'com.github.Sublimis'
 
 android {
     namespace 'lib.sublimis.steadyview'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         minSdk 21
-        targetSdk 33
+        targetSdk 34
     }
 
     buildTypes {
@@ -23,7 +23,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    buildToolsVersion '33.0.2'
+    buildToolsVersion '34.0.0'
 }
 
 
@@ -45,5 +45,5 @@ afterEvaluate {
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.6.0'
+    implementation 'androidx.annotation:annotation:1.7.1'
 }
