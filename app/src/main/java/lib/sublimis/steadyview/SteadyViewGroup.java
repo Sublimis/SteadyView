@@ -28,7 +28,7 @@ import androidx.annotation.Nullable;
  * Find out more at <a href="https://github.com/Sublimis/SteadyView/">https://github.com/Sublimis/SteadyView/</a>.
  *
  * @author Sublimis
- * @version 1.0 (2024-02)
+ * @version 1.2 (2024-02)
  */
 public abstract class SteadyViewGroup extends ViewGroup implements ISteadyView
 {

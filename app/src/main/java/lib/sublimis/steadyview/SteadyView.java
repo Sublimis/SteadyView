@@ -29,7 +29,7 @@ import lib.sublimis.steadyview.ISteadyView;
  * Find out more at <a href="https://github.com/Sublimis/SteadyView/">https://github.com/Sublimis/SteadyView/</a>.
  *
  * @author Sublimis
- * @version 1.0 (2024-02)
+ * @version 1.2 (2024-02)
  */
 public class SteadyView extends View implements ISteadyView
 {
