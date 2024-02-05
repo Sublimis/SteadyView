@@ -73,7 +73,7 @@ public interface ISteadyView
 	 */
 	default void initSteadyView()
 	{
-		SteadyViewHelper.initSteadyView(this);
+		HSteadyView.initSteadyView(this);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public interface ISteadyView
 	 */
 	default boolean performSteadyViewAction(final int action, @Nullable final Bundle arguments)
 	{
-		return SteadyViewHelper.performSteadyViewAction(this, action, arguments);
+		return HSteadyView.performSteadyViewAction(this, action, arguments);
 	}
 
 	/**
@@ -93,6 +93,6 @@ public interface ISteadyView
 	 */
 	default void undoSteadyViewAction()
 	{
-		SteadyViewHelper.undoSteadyViewAction(this);
+		HSteadyView.undoSteadyViewAction(this);
 	}
 }
