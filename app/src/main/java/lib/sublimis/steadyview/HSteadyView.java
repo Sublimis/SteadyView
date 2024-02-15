@@ -32,7 +32,7 @@ import androidx.annotation.Nullable;
  * Find out more at <a href="https://github.com/Sublimis/SteadyView/">https://github.com/Sublimis/SteadyView/</a>.
  *
  * @author Sublimis
- * @version 1.2 (2024-02)
+ * @version 1.2.1 (2024-02)
  */
 @SuppressLint("ObsoleteSdkInt")
 public class HSteadyView
@@ -51,6 +51,8 @@ public class HSteadyView
 					info.addAction(ISteadyView.STEADY_ACTION);
 				}
 			});
+
+			((View) steadyView).setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
 		}
 	}
 
