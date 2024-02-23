@@ -18,9 +18,12 @@ import android.annotation.SuppressLint;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.view.View.AccessibilityDelegate;
 import android.view.accessibility.AccessibilityNodeInfo;
+
+import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,14 +35,18 @@ import androidx.annotation.Nullable;
  * Find out more at <a href="https://github.com/Sublimis/SteadyView/">https://github.com/Sublimis/SteadyView/</a>.
  *
  * @author Sublimis
- * @version 1.2.1 (2024-02)
+ * @version 1.3 (2024-02)
  */
 @SuppressLint("ObsoleteSdkInt")
 public class HSteadyView
 {
+	protected static final long UndoTimeout = TimeUnit.SECONDS.toNanos(2);
+	protected static final long UndoCheckTimeout = TimeUnit.MILLISECONDS.toNanos(1000);
+	protected static long mActionTime = 0, mUndoCheckTime = 0;
+
 	public static void initSteadyView(@NonNull final ISteadyView steadyView)
 	{
-		if (VERSION.SDK_INT >= VERSION_CODES.O && steadyView instanceof View)
+		if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP && steadyView instanceof View)
 		{
 			((View) steadyView).setAccessibilityDelegate(new AccessibilityDelegate()
 			{
@@ -49,6 +56,7 @@ public class HSteadyView
 					super.onInitializeAccessibilityNodeInfo(host, info);
 
 					info.addAction(ISteadyView.STEADY_ACTION);
+					info.setText(ISteadyView.STEADY_ACTION.getLabel());
 				}
 			});
 
@@ -60,9 +68,9 @@ public class HSteadyView
 	{
 		boolean retVal = false;
 
-		if (arguments != null && steadyView instanceof View && steadyView.isSteadyViewEnabled())
+		if (steadyView.isSteadyViewEnabled() && steadyView instanceof View)
 		{
-			if (isSteadyViewAction(action, arguments))
+			if (arguments != null && isSteadyViewAction(action, arguments))
 			{
 				final int x = arguments.getInt(ISteadyView.ARG_MOVE_X, Integer.MIN_VALUE);
 				final int y = arguments.getInt(ISteadyView.ARG_MOVE_Y, Integer.MIN_VALUE);
@@ -80,6 +88,8 @@ public class HSteadyView
 
 					retVal = true;
 				}
+
+				manageUndo(steadyView);
 			}
 		}
 
@@ -95,15 +105,51 @@ public class HSteadyView
 		}
 	}
 
+	protected static void manageUndo(@NonNull final ISteadyView steadyView)
+	{
+		final long timestamp = SystemClock.elapsedRealtimeNanos();
+
+		if (isUndoCheckNeeded(timestamp))
+		{
+			((View) steadyView).postDelayed(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					if (isUndoNeeded())
+					{
+						undoSteadyViewAction(steadyView);
+					}
+				}
+			}, TimeUnit.NANOSECONDS.toMillis(UndoTimeout + UndoCheckTimeout) + 500);
+
+			mUndoCheckTime = timestamp;
+		}
+
+		mActionTime = timestamp;
+	}
+
+	protected static boolean isUndoNeeded()
+	{
+		final long timestamp = SystemClock.elapsedRealtimeNanos();
+
+		return timestamp - mActionTime > UndoTimeout;
+	}
+
+	protected static boolean isUndoCheckNeeded(final long timestamp)
+	{
+		return timestamp - mUndoCheckTime > UndoCheckTimeout;
+	}
+
 	public static boolean isSteadyViewAction(final int action, @Nullable final Bundle arguments)
 	{
 		boolean retVal = false;
 
-		if (VERSION.SDK_INT >= VERSION_CODES.O)
+		if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP)
 		{
-			if (arguments != null && action == ISteadyView.STEADY_ACTION.getId())
+			if (action == ISteadyView.STEADY_ACTION.getId())
 			{
-				retVal = arguments.containsKey(ISteadyView.ARG_ID);
+				retVal = true;
 			}
 		}
 
@@ -116,7 +162,6 @@ public class HSteadyView
 		{
 			arguments.putInt(ISteadyView.ARG_MOVE_X, x);
 			arguments.putInt(ISteadyView.ARG_MOVE_Y, y);
-			arguments.putString(ISteadyView.ARG_ID, ISteadyView.ARG_ID);
 		}
 	}
 }

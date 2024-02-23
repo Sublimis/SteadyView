@@ -14,8 +14,6 @@
 
 package lib.sublimis.steadyview;
 
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.view.accessibility.AccessibilityNodeInfo.AccessibilityAction;
 
@@ -30,12 +28,11 @@ import androidx.annotation.Nullable;
  * Find out more at <a href="https://github.com/Sublimis/SteadyView/">https://github.com/Sublimis/SteadyView/</a>.
  *
  * @author Sublimis
- * @version 1.2.1 (2024-02)
+ * @version 1.3 (2024-02)
  */
 public interface ISteadyView
 {
-	AccessibilityAction STEADY_ACTION = VERSION.SDK_INT >= VERSION_CODES.O ? new AccessibilityAction(AccessibilityAction.ACTION_MOVE_WINDOW.getId(), "(SteadyView)") : null;
-	String ARG_ID = "lib.steadyview.ID";
+	AccessibilityAction STEADY_ACTION = new AccessibilityAction(R.id.steadyAccessibilityActionId, "(SteadyView)");
 	String ARG_MOVE_X = "lib.steadyview.MOVE_X";
 	String ARG_MOVE_Y = "lib.steadyview.MOVE_Y";
 	AtomicBoolean mIsEnabled = new AtomicBoolean(true);
@@ -56,7 +53,7 @@ public interface ISteadyView
 	 * @param enabled true to enable the SteadyView feature globally, false to disable
 	 * @return true if SteadyView feature enabled state was changed as a result of this call
 	 */
-	default boolean setSteadyViewEnabled(boolean enabled)
+	default boolean setSteadyViewEnabled(final boolean enabled)
 	{
 		final boolean retVal = mIsEnabled.compareAndSet(!enabled, enabled);
 
