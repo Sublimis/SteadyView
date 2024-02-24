@@ -35,7 +35,7 @@ import androidx.annotation.Nullable;
  * Find out more at <a href="https://github.com/Sublimis/SteadyView/">https://github.com/Sublimis/SteadyView/</a>.
  *
  * @author Sublimis
- * @version 1.3 (2024-02)
+ * @version 1.3.1 (2024-02)
  */
 @SuppressLint("ObsoleteSdkInt")
 public class HSteadyView

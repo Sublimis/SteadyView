@@ -28,11 +28,11 @@ import androidx.annotation.Nullable;
  * Find out more at <a href="https://github.com/Sublimis/SteadyView/">https://github.com/Sublimis/SteadyView/</a>.
  *
  * @author Sublimis
- * @version 1.3 (2024-02)
+ * @version 1.3.1 (2024-02)
  */
 public interface ISteadyView
 {
-	AccessibilityAction STEADY_ACTION = new AccessibilityAction(R.id.steadyAccessibilityActionId, "(SteadyView)");
+	AccessibilityAction STEADY_ACTION = new AccessibilityAction(1000573491, "(SteadyView)");
 	String ARG_MOVE_X = "lib.steadyview.MOVE_X";
 	String ARG_MOVE_Y = "lib.steadyview.MOVE_Y";
 	AtomicBoolean mIsEnabled = new AtomicBoolean(true);
