@@ -74,6 +74,11 @@ Absolutely nothing. Your Views and ViewGroups continue to function as if the Sti
 ⚡ The service has been crafted very meticulously, in order to minimize resource usage and maximize performance. It uses only the accelerometer sensor to achieve the goal.
 
 
+## More info
+
+Please see the [SteadyScreen](https://github.com/Sublimis/SteadyScreen) project for more details.
+
+
 ## Example
 
 Below is the complete implementation of the functionality in a custom view that overrides the plain [`android.view.View`](https://developer.android.com/reference/android/view/View).
