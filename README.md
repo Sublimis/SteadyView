@@ -13,7 +13,7 @@ Ever been in a moving vehicle trying to read?
 
 ## To use SteadyView library in your app
 
-This library enables you to implement the functionality in your own custom View. If you need ready-to-use "Steady…" implementations of most common Android layouts (like e.g. [LinearLayout](https://developer.android.com/reference/android/widget/LinearLayout) or [ConstraintLayout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)), you can use the [SteadyViews](https://github.com/Sublimis/SteadyViews) library instead.
+This library enables you to implement the functionality in your own custom View or ViewGroup. If you need ready-to-use "Steady…" implementations of most common Android layouts (like e.g. [LinearLayout](https://developer.android.com/reference/android/widget/LinearLayout) or [ConstraintLayout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)), you can use the [SteadyViews](https://github.com/Sublimis/SteadyViews) library instead.
 
 
 1. Add the following line to your `build.gradle` file (find more info at [https://jitpack.io/#Sublimis/SteadyView](https://jitpack.io/#Sublimis/SteadyView)):
@@ -21,7 +21,7 @@ This library enables you to implement the functionality in your own custom View.
 ```groovy
 implementation 'com.github.Sublimis:SteadyView:v1.3.1'
 ```
-2. Let your custom [`android.view.View`](https://developer.android.com/reference/android/view/View) implement the [`lib.sublimis.steadyview.ISteadyView`](https://github.com/Sublimis/SteadyView/blob/master/app/src/main/java/lib/sublimis/steadyview/ISteadyView.java) interface. This helper interface has no required methods, only a few methods that you can call from your code.
+2. Let your custom [`android.view.View`](https://developer.android.com/reference/android/view/View) or [`android.view.ViewGroup`](https://developer.android.com/reference/android/view/ViewGroup) implement the [`lib.sublimis.steadyview.ISteadyView`](https://github.com/Sublimis/SteadyView/blob/master/app/src/main/java/lib/sublimis/steadyview/ISteadyView.java) interface. This helper interface has no required methods, only a few methods that you can call from your code.
 3. Call the `ISteadyView.super.initSteadyView()` in every constructor of your custom view.
 4. Override the `android.view.View.performAccessibilityAction(int, Bundle)` method, from which you should call the `ISteadyView.super.performSteadyViewAction(int, Bundle)`, like so:
 ```java
