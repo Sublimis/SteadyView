@@ -1,14 +1,17 @@
 [![Release](https://jitpack.io/v/Sublimis/SteadyView.svg)](https://jitpack.io/#Sublimis/SteadyView)
 
-# ⛵ SteadyView for Android 🏝️
+# ⛵ SteadyView library for Android and Wear 🏝️
 
-### Improve shaking screen legibility and possibly alleviate motion sickness while on the go.
+### Make on-screen reading easier by softening small movements of mobile screens.
 
-- This service allows compatible applications to easily counteract small device movements within their user interface.
-- It can improve screen readability and possibly alleviate motion sickness while on the go, e.g. while reading in a moving vehicle.
-- This library is only useful in symbiosis with the [Smooth Sail](https://play.google.com/store/apps/details?id=com.sublimis.steadyscreen) accessibility service installed and enabled.
 
-## To use this library in your app
+Ever been in a moving vehicle trying to read?
+
+
+- [Stilly screen stabilizer](https://github.com/Sublimis/SteadyScreen/) is a service that allows compatible Android and Wear apps to easily soften small device movements within their user interface.
+- Use the SteadyView library to make your Android or Wear application compatible with very little effort.
+
+## To use SteadyView library in your app
 
 This library enables you to implement the functionality in your own custom View. If you need ready-to-use "Steady…" implementations of most common Android layouts (like e.g. [LinearLayout](https://developer.android.com/reference/android/widget/LinearLayout) or [ConstraintLayout](https://developer.android.com/jetpack/androidx/releases/constraintlayout)), you can use the [SteadyViews](https://github.com/Sublimis/SteadyViews) library instead.
 
@@ -16,7 +19,7 @@ This library enables you to implement the functionality in your own custom View.
 1. Add the following line to your `build.gradle` file (find more info at [https://jitpack.io/#Sublimis/SteadyView](https://jitpack.io/#Sublimis/SteadyView)):
 
 ```groovy
-implementation 'com.github.Sublimis:SteadyView:v1.0'
+implementation 'com.github.Sublimis:SteadyView:v1.3.1'
 ```
 2. Let your custom [`android.view.View`](https://developer.android.com/reference/android/view/View) implement the [`lib.sublimis.steadyview.ISteadyView`](https://github.com/Sublimis/SteadyView/blob/master/app/src/main/java/lib/sublimis/steadyview/ISteadyView.java) interface. This helper interface has no required methods, only a few methods that you can call from your code.
 3. Call the `ISteadyView.super.initSteadyView()` in every constructor of your custom view.
@@ -30,13 +33,13 @@ implementation 'com.github.Sublimis:SteadyView:v1.0'
       return super.performAccessibilityAction(action, arguments) || status;
    }
 ```
-5. Install and enable the [Smooth Sail](https://play.google.com/store/apps/details?id=com.sublimis.steadyscreen) accessibility service.
+5. Install and enable the Stilly screen stabilizer accessibility service from the [Play Store](https://play.google.com/store/apps/details?id=com.sublimis.steadyscreen).
 6. Enjoy!
 
 
 ## About the service
 
-[Smooth Sail](https://play.google.com/store/apps/details?id=com.sublimis.steadyscreen) application uses the [AccessibilityService API](https://developer.android.com/reference/android/accessibilityservice/AccessibilityService) to retrieve interactive windows on the screen, in order to find compatible ones. The service then sends multiple "move window" accessibility actions to such windows, as needed, to perform the intended function. The data accessed during the process, using Android's AccessibilityService API, can be of personal and confidential nature (i.e. sensitive information). Smooth Sail never collects, stores nor shares that data in any way.
+[Stilly](https://play.google.com/store/apps/details?id=com.sublimis.steadyscreen) application uses the [AccessibilityService API](https://developer.android.com/reference/android/accessibilityservice/AccessibilityService) to retrieve interactive windows on the screen, in order to find compatible ones. The service then sends multiple "move window" accessibility actions to such windows, as needed, to perform the intended function. The data accessed during the process, using Android's AccessibilityService API, can be of personal and confidential nature (i.e. sensitive information). Smooth Sail never collects, stores nor shares that data in any way.
 
 
 ## Example
