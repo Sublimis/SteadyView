@@ -24,7 +24,7 @@ This library enables you to implement the functionality in your own custom View 
 1. Add the following line to your `build.gradle` file (find more info at [https://jitpack.io/#Sublimis/SteadyView](https://jitpack.io/#Sublimis/SteadyView)):
 
 ```groovy
-implementation 'com.github.Sublimis:SteadyView:v1.3.1'
+implementation 'com.github.Sublimis:SteadyView:1.3.1'
 ```
 2. Let your custom [`android.view.View`](https://developer.android.com/reference/android/view/View) or [`android.view.ViewGroup`](https://developer.android.com/reference/android/view/ViewGroup) implement the [`lib.sublimis.steadyview.ISteadyView`](https://github.com/Sublimis/SteadyView/blob/master/app/src/main/java/lib/sublimis/steadyview/ISteadyView.java) interface. This helper interface has no required methods, only a few methods that you can call from your code.
 3. Call the `ISteadyView.super.initSteadyView()` in every constructor of your custom view.
