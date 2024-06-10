@@ -10,10 +10,10 @@ Please see the [SteadyScreen](https://github.com/Sublimis/SteadyScreen) project 
 
 ## Project components
 
-- [Stilly app](https://play.google.com/store/apps/details?id=com.sublimis.steadyscreen): The engine behind the scenes.
-- [SteadyService library](https://github.com/Sublimis/SteadyService): If you want to implement your own screen stabilizer service that won't need Stilly.
+- [SteadyScreen service app](https://play.google.com/store/apps/details?id=com.sublimis.steadyscreen): The engine behind the scenes.
 - [SteadyViews library](https://github.com/Sublimis/SteadyViews): Ready-to-use "Steady…" implementations of most common Android layouts (like e.g. LinearLayout or ConstraintLayout).
 - SteadyView library (this): Core classes and methods. To be used for custom View or ViewGroup implementations.
+- [SteadyService library](https://github.com/Sublimis/SteadyService): Details of the service implementation.
 
 
 ## To use this library in your app
@@ -26,9 +26,22 @@ This library enables you to implement the functionality in your own custom View 
 ```groovy
 implementation 'com.github.Sublimis:SteadyView:1.3.1'
 ```
-2. Let your custom [`android.view.View`](https://developer.android.com/reference/android/view/View) or [`android.view.ViewGroup`](https://developer.android.com/reference/android/view/ViewGroup) implement the [`lib.sublimis.steadyview.ISteadyView`](https://github.com/Sublimis/SteadyView/blob/master/app/src/main/java/lib/sublimis/steadyview/ISteadyView.java) interface. This helper interface has no required methods, only a few methods that you can call from your code.
-3. Call the `ISteadyView.super.initSteadyView()` in every constructor of your custom view.
-4. Override the `android.view.View.performAccessibilityAction(int, Bundle)` method, from which you should call the `ISteadyView.super.performSteadyViewAction(int, Bundle)`, like so:
+2. Let your custom [`android.view.View`](https://developer.android.com/reference/android/view/View) or [`android.view.ViewGroup`](https://developer.android.com/reference/android/view/ViewGroup) implement the [`lib.sublimis.steadyview.ISteadyView`](https://github.com/Sublimis/SteadyView/blob/master/app/src/main/java/lib/sublimis/steadyview/ISteadyView.java) helper interface. Call the `ISteadyView.super.initSteadyView()` from every constructor of your custom view.
+```java
+   public class MyView extends View implements ISteadyView
+   {
+      public MyView(final Context context)
+      {
+         super(context);
+   
+         ISteadyView.super.initSteadyView();
+      }
+
+      ...
+   }
+```
+
+3. Override the `android.view.View.performAccessibilityAction(int, Bundle)` method, from which you should call the `ISteadyView.super.performSteadyViewAction(int, Bundle)`, like so:
 ```java
    @Override
    public boolean performAccessibilityAction(final int action, @Nullable final Bundle arguments)
@@ -38,29 +51,24 @@ implementation 'com.github.Sublimis:SteadyView:1.3.1'
       return super.performAccessibilityAction(action, arguments) || status;
    }
 ```
-5. Install and enable the Stilly screen stabilizer accessibility service from the [Play Store](https://play.google.com/store/apps/details?id=com.sublimis.steadyscreen).
-6. Enjoy!
+
+4. Install and enable the SteadyScreen accessibility service from the [Play Store](https://play.google.com/store/apps/details?id=com.sublimis.steadyscreen).
+
+5. Enjoy!
 
 
 ## Enable or disable programatically
 
-Call the `ISteadyView.setSteadyViewEnabled(final boolean enabled)` method on your ISteadyView to disable or (re)enable the functionality:
+Call the `ISteadyView.setSteadyViewEnabled(final boolean enabled)` method on your ISteadyView to disable or (re)enable the functionality.
 
+Disable:
+```java
+myView.setSteadyViewEnabled(false);
 ```
-MyCustomView extends View implements ISteadyView
-{
-   ...
-}
 
-MyCustomView myCustomView = new MyCustomView();
-
-...
-
-myCustomView.setSteadyViewEnabled(false);
-
-...
-
-myCustomView.setSteadyViewEnabled(true);
+Enable:
+```java
+myView.setSteadyViewEnabled(true);
 ```
 
 Note, this does not disable/enable the service, it just tells the View to ignore all service inputs.
