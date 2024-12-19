@@ -35,9 +35,9 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 // Applies the component for the release build variant.
-//                afterEvaluate {
-//                    from components.release
-//                }
+                afterEvaluate {
+                    from components.release
+                }
 
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'lib.sublimis.steadyview'
